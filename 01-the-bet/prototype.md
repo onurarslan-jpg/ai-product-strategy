@@ -35,15 +35,18 @@ become a commodity, which moves the open question from *can it be built* to
 Each criterion kills a different load-bearing assumption. Every one has a
 threshold and an expiry date — a criterion with no date never fires.
 
-**1 · Sketch beats the platform's own image input** — *gate: 11 Nov 2026*
-The bet dies here first, so test it first, and test it against the right
-control. The comparison is not sketch versus typed description; the platform
-already accepts image attachments, builds from a URL with reference images, and
-imports Figma files. Run 10 ideas three ways: (a) sketch through this studio,
-(b) the same sketch pasted straight into the platform's own chat, (c) a
-two-sentence text description. Blind reviewers rank the outputs against intent.
-**Kill if** (a) fails to beat (b) on at least 65% of pairs. Losing to (c) is
-embarrassing; losing to (b) means there is no product.
+**1 · Sketch beats the platform's own image input, once warmed** — *gate: 11 Nov 2026*
+Test it first, and test it against the right control. The comparison is not
+sketch versus typed description; the platform already accepts image attachments,
+builds from a URL with reference images, and imports Figma files. Run 10 ideas
+three ways: (a) sketch through this studio with the user's accumulated preference
+profile active, (b) the same sketch pasted straight into the platform's own chat,
+(c) a two-sentence text description. Blind reviewers rank the outputs against
+intent.
+**Kill if** (a) fails to beat (b) on at least 65% of pairs *for returning users*.
+A cold-start loss to (b) is survivable, because the bet was never that one
+generation beats the platform — it is that generation N does, once the corpus and
+the profile are working. A warmed loss means the flywheel is not turning.
 
 **2 · Output is usable unedited** — *gate: 11 Nov 2026*
 10 PMs each upload one real sketch from work they are actually doing.

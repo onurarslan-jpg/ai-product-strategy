@@ -14,87 +14,90 @@ disposable clickable mock.
 ## Scores
 
 **Scoring direction:** 5 = strongest position, 1 = most vulnerable, on all three
-axes. So *Platform Exposure 1* means heavily exposed, not well defended.
+axes. So *Platform Exposure 2* means heavily exposed, not well defended.
 
-### Contextual Moat — 2/5
+### Contextual Moat — 3/5
 *Workflow depth × switching cost. Would users leave in a weekend if a competitor showed up?*
 
 **Score rationale:**
-Because the output is a deployed application rather than a mock, real state
-accumulates: user accounts, rows in Postgres, uploaded files, a schema someone
-has since hand-edited, a URL other people already use. That is a genuine
-switching cost, and it is why this is not a 1.
+Two distinct switching costs stack here. The first is the deployed application
+itself: accounts, rows in Postgres, uploaded files, a URL other people already
+use. The second, and the one that actually holds users, is the accumulated
+preference profile — a returning team does not restate its house style, naming
+conventions or layout habits, because the product already knows them. Leaving
+means going back to a cold start, and that cost grows with every session rather
+than staying flat.
 
-What caps it at 2 is who the switching cost belongs to. Every durable asset —
-the database, the auth provider, the storage bucket, the hosting — lives in the
-platform's backend, not in this product. The sketch-to-app step is still one
-stateless hop at the front of someone else's stack. Worse, the platform
-deliberately engineers exit: it documents full database export, daily backups,
-code download and two-way Git sync, and markets one-click import *from* Replit,
-Bolt, v0 and Base44 including their databases and users. A user who wants to
-leave takes their app with them in an afternoon, by design.
+What caps it at 3 is that the infrastructure layer remains the platform's, and
+the platform deliberately engineers exit: documented database export, daily
+backups, code download, two-way Git sync, and one-click import *from* competing
+tools. A user can take the artifact with them in an afternoon. What they cannot
+take is the learned profile and the shared corrections corpus — which is exactly
+why the moat sits at 3 rather than 1 or 5.
 
 **Named attacker (from partner challenge):**
-**Figma.** They own the surface where sketches already become designs, Figma
-Make already generates working UI, and the depth they hold — files, component
-libraries, comments, reviewers, handoff — is exactly the layer this product
-lacks.
+**Figma.** They own the surface where sketches already become designs, and the
+depth they hold — files, component libraries, comments, reviewers, handoff — is
+the one layer this product still lacks.
 
-### Data Advantage — 2/5
+### Data Advantage — 4/5
 *Proprietary signal that compounds with usage. What do you see that OpenAI doesn't?*
 
 **Score rationale:**
-Full-stack output raises the ceiling here considerably. The signal is no longer
-just sketch → accepted UI; it is sketch → inferred data model → auth choices →
-whatever the human corrected afterwards. Which tables a person implied when they
-drew three boxes and an arrow is genuinely rare training signal, and it is not
-in any public corpus.
+This is the strongest axis and the reason the overall bet is live. Every session
+produces a paired before/after with human intent attached: the sketch, the first
+generation, the corrections, the accepted result. That pairing is captured in the
+product's own backend and fed into a shared asset, so a user who never corrected
+anything still benefits from corrections made before they arrived. The signal is
+dense, free to collect — correcting the output *is* the workflow — and genuinely
+unavailable elsewhere. Which tables a person implied when they drew three boxes
+and an arrow is in no public corpus, and OpenAI does not see it.
 
-The floor has not moved, which is why the score has not either. None of it is
-captured today, volume is zero, and the platform underneath observes the same
-prompt → app → correction loop across every project on it, at a scale this
-product will never reach. The asset is identified, not held — and the party best
-placed to hold it is the platform, not its tenant.
+It is a 4 rather than a 5 because the compounding is asserted rather than
+measured, and because the corpus is spread across domains rather than
+concentrated in one. A thick corpus in one domain beats a thin corpus in ten;
+first-generation acceptance rate over time, segmented by domain, is the number
+that would settle this.
 
 **Named attacker (from partner challenge):**
-**Lovable**, which sees the identical signal across its whole user base.
-Secondarily **OpenAI / Anthropic**, whose general multimodal models lift
-image-to-code for everyone without needing anyone's proprietary pairs.
+**A vertical specialist** that concentrates every correction into a single
+domain and out-accumulates on the one axis that matters. Not the platform — it
+cannot see inside this product's database.
 
-### Platform Exposure — 1/5
+### Platform Exposure — 2/5
 *Encroachment risk × pivot speed. If Apple/Google/OpenAI ships your hero feature native — then what?*
 
 **Score rationale:**
-Understanding the platform properly makes this score worse, not better. The
-differentiator is the input modality — a sketch instead of a sentence — and the
-platform already ships it. Its project chat accepts file attachments, it
-documents building from a URL *with reference images*, and it offers three
-separate routes for importing Figma designs. The hero feature is not one
-checkbox away; it is already present as a supported path.
+The encroachment risk on the input modality is real and close to immediate: the
+platform already accepts image attachments, already builds from a URL with
+reference images, and already imports Figma designs three ways. Sketch-as-input
+is not a defensible feature and should not be treated as one.
 
-That leaves this product as a narrower entry point into a platform that performs
-the entire remaining job, while depending on that platform for the job itself.
-The usual consolation — fast pivot — does not help much, because after removing
-the sketch step there is nothing underneath that is not the platform's.
+What has changed is how much that costs. Shipping a sketch tile takes the
+platform top-of-funnel; it does not take returning users, because it cannot
+replicate a corrections corpus it cannot see or the personalization built on it.
+The exposure is a 2 rather than a 1 because the thing at risk is now acquisition
+rather than retention — and a 2 rather than a 3 because the dependency underneath
+is still total: hosting, auth, database and deployment all belong to the same
+company best placed to encroach.
 
 **Named attacker (from partner challenge):**
-**Lovable** — the platform this is built on, which already accepts image input,
-already generates the full stack, and has made absorbing adjacent tools
-(Replit, Bolt, v0, Base44) an explicit product strategy.
+**Lovable**, which already ships every input path this product differentiates on
+and has made absorbing adjacent tools an explicit strategy.
 
 ---
 
 ## Top Vulnerability
 <!-- One line: what's the single biggest strategic risk? -->
-Every durable asset the product creates — accounts, data, deployment, telemetry
-— accrues to the platform it is built on, while the one thing that is genuinely
-its own, sketch-as-input, is already a shipped platform feature.
+The flywheel is real but domain-thin: corrections do not transfer between
+domains, so a vertical specialist can out-accumulate the corpus inside any single
+domain while the generalist's advantage stays spread too thin to defend.
 
 ## Confidence Level
 <!-- H / M / L — how confident are you in this bet after the diagnostic? -->
-**L**, and lower than before the platform's capabilities were understood
-properly. The load-bearing assumption is no longer "can AI turn a sketch into an
-app" — the platform answers that — but "is a sketch a better entry point than
-pasting the same image into the platform's own chat." That has not been tested,
-and it is cheap to test. Kill criterion 1 should run before anything else is
-built.
+**M.** The question that mattered — is there an asset here that compounds — is
+answered, and the answer is yes. Three things keep it off H: the compounding is
+claimed rather than measured, the domain-thinness above is unaddressed and is now
+the primary attack surface, and the deployed build does not currently serve the
+product. The first is a dashboard, the second is a strategy decision, the third
+is a bug.
