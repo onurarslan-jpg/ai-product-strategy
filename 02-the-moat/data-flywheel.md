@@ -109,13 +109,20 @@ replicate a corrections corpus they cannot see or the personalization built on
 top of it. What they capture is first-time users, not returning ones.
 
 ### 2. Vertical Competitor
-**Attacker:** A domain specialist — a builder that does only internal ops tools,
-or only clinical intake, or only field service.
-**Vector:** Concentrate every correction into a single domain. They out-accumulate
-on the one axis that matters while the generalist's corpus stays spread thin, and
-they beat you on your own moat rather than around it.
-**Time-to-threat:** 6-12 months.
-**% of value at risk:** ~60% of whichever domain they choose. This is now the
+**Attacker:** A domain-specialist creator platform. The live example is
+**Astrocade** (astrocade.com) — AI-built casual mobile games.
+**Vector:** They do not compete on generation quality, they compete on three
+things a generalist structurally lacks. Their catalogue is indexed by genre —
+Platformer, Arcade, Merge, Horror, Incremental — which is a pattern index, so
+corrections cluster where they transfer. Their feedback label is plays, not
+acceptance: a game showing 3.2M plays against one showing 29 is graded by
+outcome, where a generalist only ever learns that someone clicked accept. And
+their Astro Academy codifies the craft — core mechanics, game feel, first
+impression, download time — turning tacit domain knowledge into curriculum that
+both teaches creators and standardises what "good" means inside the corpus.
+**Time-to-threat:** Already live in their vertical. 6-12 months for the pattern
+to be copied into a second one.
+**% of value at risk:** ~60% of whichever vertical is targeted. This is now the
 primary threat, and it is the direct consequence of Domain Context scoring 2.
 
 ### 3. Adjacent Expansion
@@ -133,36 +140,45 @@ carries the accumulated preference profile that makes a returning user stick.
 ## 90-Day Encroachment Plan
 
 *Your partner played the Big Tech attacker. What was their plan to kill you?*
-*(No partner input available — this is the plan I would run against this product.)*
+*(Modelled on Astrocade's actual approach rather than a hypothetical.)*
 
-**Attacker:** A vertical specialist, not the platform. The platform attack is
-louder but shallower; this one targets the weak loop.
+**Attacker:** A domain-specialist creator platform, not a bigger generalist. The
+generalist fight is loud and shallow; this one targets the weak loop.
 
 **Attack vector (target the weakest loop):**
-Domain Context. Pick the single highest-value domain in the generalist's user
-base, build only for it, and make every correction compound into that one
-corpus.
+Domain Context, reinforced by a distribution loop the generalist has no answer
+to. Index everything by genre so every correction compounds where it transfers,
+then grade output on engagement rather than acceptance.
 
 **Weeks 1-4 - what they ship:**
-A narrow product for one domain, with a domain-specific evaluation set published
-openly — the schema conventions, the compliance fields, the layouts that domain
-actually uses. Correctness in that domain becomes a measurable, citable claim.
+A genre taxonomy and a published curriculum for the vertical — the equivalent of
+eight lessons on what makes a casual game work, down to download time and game
+feel. This is not marketing. It externalises the domain's correctness rules,
+which simultaneously recruits creators, standardises the corpus and tells the
+market what to measure.
 
 **Weeks 5-8 - how they poach users:**
-Run the generalist's own public outputs through the published eval and publish
-the gap. The pitch is not "we are faster", it is "we are measurably more correct
-for your domain, here is the number" — which is the one claim a thin corpus
-cannot answer.
+Offer creators something generation quality cannot buy: players. A catalogue
+with visible play counts means a creator's output gets an audience on day one.
+The generalist hands back a deployed URL and no distribution, so the creator has
+to find their own users. That is the whole pitch.
 
 **Weeks 9-12 - why users don't come back:**
-Because the specialist's corpus in that domain is now thicker than the
-generalist's, and the gap widens with every session. Preference personalization
-does not rescue it: a well-learned house style applied to a structurally wrong
-schema is still wrong.
+Two compounding reasons. First, the audience is there, not here — leaving costs
+them their players, which is a switching cost no preference profile matches.
+Second, the specialist's corpus is now graded on engagement in one genre while
+the generalist's is graded on acceptance across forty, so the quality gap in
+that genre is both real and widening.
 
 **Your defense:**
-Decide which of the two fixes above you are running, and run it before the gap is
-measurable. Alongside that, start publishing the number that makes the flywheel
-visible: first-generation acceptance rate over time, segmented by domain. Right
-now the compounding is a claim. Measured and trending, it becomes the thing a
-specialist has to beat — and the thing an acquirer or an investor can price.
+Three moves, in order of how quickly they can start.
+1. **Re-index the corpus by pattern, not by vertical.** Cheapest and highest
+   leverage: it is the multiplier on data already held.
+2. **Find a better label than acceptance.** Acceptance says a user clicked
+   approve. Engagement, retention or completion of the generated app says it
+   worked. Any outcome signal from deployed apps beats the current one, and it
+   is observable without asking anyone.
+3. **Decide about distribution.** The specialist's real moat is that creators
+   come for the builder and stay for the audience. A generalist either picks a
+   vertical where it can build that loop, or accepts competing on generation
+   quality alone — which is the axis that commoditises fastest.
