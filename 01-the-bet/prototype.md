@@ -30,9 +30,38 @@ fidelity bar where output is testable with real users instead of merely pretty.
 
 ## Kill Criteria
 <!-- When would you stop? What evidence would kill this bet? -->
-- Fewer than 5 of 10 PMs get a prototype they would show a stakeholder without
-  editing it → stop.
-- Median upload-to-shareable-prototype time exceeds 5 minutes → the "faster than
-  building it myself" claim fails → stop.
-- Most users need more than one correction round to reach usable fidelity → it's
-  a toy, not a tool.
+Each criterion kills a different load-bearing assumption. Every one has a
+threshold and an expiry date — a criterion with no date never fires.
+
+**1 · Sketch input earns its place** — *gate: 11 Nov 2026*
+The bet dies here first, so test it first. Run 10 ideas twice: once from a
+sketch, once from a two-sentence text description into the same model. Blind
+reviewers pick which output better matches intent.
+**Kill if** the sketch arm wins under 65% of pairs. Below that, sketching is
+ceremony and this is a thin wrapper on Lovable.
+
+**2 · Output is usable unedited** — *gate: 11 Nov 2026*
+10 PMs each upload one real sketch from work they are actually doing.
+**Kill if** fewer than 6 of 10 first-generation outputs get used in a real
+stakeholder review or user test with no manual editing. Measured by what they
+did, not what they said they would do.
+
+**3 · People come back** — *gate: 9 Dec 2026*
+**Kill if** fewer than 3 of the first 20 activated users upload a second sketch
+within 14 days of their first. One-and-done is a demo, not a tool, and second
+use is the cheapest honest demand signal available.
+
+**4 · The unit economics survive** — *gate: 9 Dec 2026*
+**Kill if** median cost per accepted prototype (inference plus retries) exceeds
+€2 while under 20% of surveyed PMs say they would pay €20/month. Either number
+alone is survivable; together they are not.
+
+**5 · Platform encroachment** — *pivot trigger, watch to 31 Jan 2027*
+**Stop or pivot if** Figma, Lovable, v0 or an OS vendor ships sketch-to-prototype
+as a native first-class feature that clears criterion 2's bar. This is a pivot
+trigger rather than a kill: the asset worth keeping would be the evaluation
+harness, not the generator.
+
+**Review cadence:** criteria 1–2 are checked on 11 Nov 2026, criteria 3–4 on
+9 Dec 2026. Thresholds may be revised *before* a gate opens, never after
+the result is known.
