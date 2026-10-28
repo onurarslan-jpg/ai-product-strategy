@@ -12,6 +12,23 @@ working full-stack app — plus the preference and correction machinery around i
 | **Routing** | One model, one path. No split, no shadow traffic, no gradual cutover. | **M** | Move the model identifier out of code and behind a config flag, so a swap is a deploy rather than a release. |
 | **Eval** | A large corrections corpus exists but no frozen, versioned evaluation set is cut from it. Quality is judged per session, not per model version. | **H** | Freeze 200 sketch → accepted-app pairs as a golden set. This is a query against data already held, not a project. |
 
+## What Each Dimension Means
+
+- **Provider** - who actually runs the model. Pricing, rate limits and
+  deprecation are their decisions, and we have no answer to any of them today.
+- **Abstraction** - how much of our code knows which model it is talking to. The
+  API calls are the visible coupling; the tuned prompts are the expensive one.
+- **Routing** - whether traffic can reach more than one model at a time. Without
+  it a switch is all-or-nothing: no shadow traffic, no gradual rollout, no
+  instant rollback.
+- **Eval** - whether we can prove a replacement is as good. This one gates the
+  other three.
+
+Read in order: Eval says *whether* we can switch, Abstraction says *how much
+work* it is, Routing says *how safely* we can do it, Provider says *to whom*.
+Three of the four are high risk, but only Eval blocks the rest - which is why
+cutting the golden set comes before anything architectural.
+
 ## Portability Score
 <!-- Ready / Partial / Locked -->
 **Partial**, and closer to Locked than the word suggests.

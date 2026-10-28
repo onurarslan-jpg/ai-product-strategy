@@ -47,17 +47,26 @@ fills out.
 
 ### Domain Context Loop - 2/5
 **What you capture today:**
-This is the thin one. The substrate for transfer now exists — a shared,
-cross-user corrections corpus — but nothing deliberately carries competence from
-one domain into an adjacent one. Corrections made on CRM screens are not
-systematically mined to improve inventory screens. Whatever transfer does occur
-is the foundation model generalising, which every competitor receives on the same
-day for the same price.
+The data exists; it is filed in the wrong shape. A correction made on a CRM
+contact screen - status should be an enum rather than free text, filter above the
+table rather than beside it - is not a lesson about CRMs. It is a lesson about
+filterable tables, and it applies unchanged to a support queue, an inventory
+list, an applicant tracker. Filed by industry it stays locked in "CRM". The
+transferable unit is the UI and schema pattern, not the vertical.
 
 **How it compounds:**
-Weakly, and not by design. This is the cheapest remaining upgrade precisely
-because the corpus already exists: the missing piece is a retrieval or
-clustering layer over corrections that is domain-aware, not a new data source.
+Weakly, and the arithmetic is unforgiving. A thousand corrections spread over ten
+domains behave like a hundred each. Indexed by pattern, where the overlap between
+domains is heavy, the same thousand corrections might represent roughly twice as
+many applicable lessons. This loop is the multiplier on every other loop's
+output, which is why leaving it at 2/5 wastes the asset the other three scores
+depend on.
+
+**The signal that it is failing:** correction recurrence - are users making the
+same fix repeatedly across sessions? If they are, the corpus is not being read
+back, and that shows up well before any quality gap becomes externally visible.
+Pair it with first-generation acceptance segmented by domain: wide variance means
+thin everywhere rather than strong on average.
 
 ### Network Loop - 3/5
 **What you capture today:**
@@ -139,46 +148,54 @@ carries the accumulated preference profile that makes a returning user stick.
 
 ## 90-Day Encroachment Plan
 
-*Your partner played the Big Tech attacker. What was their plan to kill you?*
-*(Modelled on Astrocade's actual approach rather than a hypothetical.)*
+*Captured from the breakout. The attacker below is the most dangerous plan, not
+the most likely one - the likely version is the domain specialist in threat 2
+above. This is the same attack with distribution and planetary-scale outcome data
+attached.*
 
-**Attacker:** A domain-specialist creator platform, not a bigger generalist. The
-generalist fight is loud and shallow; this one targets the weak loop.
+**Attacker:** Head of Product, Google - Developer Ecosystem.
 
 **Attack vector (target the weakest loop):**
-Domain Context, reinforced by a distribution loop the generalist has no answer
-to. Index everything by genre so every correction compounds where it transfers,
-then grade output on engagement rather than acceptance.
+Domain Context, 2/5. Not generation quality - that would take them a year to
+catch. They come at the fact that corrections are filed by industry and graded on
+whether someone clicked accept.
 
 **Weeks 1-4 - what they ship:**
-A genre taxonomy and a published curriculum for the vertical — the equivalent of
-eight lessons on what makes a casual game work, down to download time and game
-feel. This is not marketing. It externalises the domain's correctness rules,
-which simultaneously recruits creators, standardises the corpus and tells the
-market what to measure.
+Sketch-to-app inside their existing developer tooling, free tier, no new model
+research required. The difference is the scaffold: every generated app is
+conditioned on what actually retains in its store category. They already own the
+index - a category taxonomy fifteen years old, with retention, install
+conversion, crash-free rate and ARPU sitting behind every category. They do not
+need to build a domain-context loop, only point an existing one at generation.
 
 **Weeks 5-8 - how they poach users:**
-Offer creators something generation quality cannot buy: players. A catalogue
-with visible play counts means a creator's output gets an audience on day one.
-The generalist hands back a deployed URL and no distribution, so the creator has
-to find their own users. That is the whole pitch.
+Two offers a generalist cannot match. Before a creator ships, show them projected
+D1 retention and install conversion against the category median. After they ship,
+one-click store listing - a ranking, a review surface and an audience on day one,
+where we hand back a URL and nothing else. Migration runs on our own tooling:
+code download, database export and two-way Git sync are their import pipeline.
 
 **Weeks 9-12 - why users don't come back:**
-Two compounding reasons. First, the audience is there, not here — leaving costs
-them their players, which is a switching cost no preference profile matches.
-Second, the specialist's corpus is now graded on engagement in one genre while
-the generalist's is graded on acceptance across forty, so the quality gap in
-that genre is both real and widening.
+Their loop closes on outcomes, ours on intentions. Every week their generator
+gets better at retention while ours gets better at looking approvable, and by day
+90 the gap is measurable in the only metric a creator is judged on. By then the
+creator's users, ratings and ranking live there. Leaving them costs an audience;
+leaving us costs a settings file.
 
 **Your defense:**
-Three moves, in order of how quickly they can start.
-1. **Re-index the corpus by pattern, not by vertical.** Cheapest and highest
-   leverage: it is the multiplier on data already held.
-2. **Find a better label than acceptance.** Acceptance says a user clicked
-   approve. Engagement, retention or completion of the generated app says it
-   worked. Any outcome signal from deployed apps beats the current one, and it
-   is observable without asking anyone.
-3. **Decide about distribution.** The specialist's real moat is that creators
-   come for the builder and stay for the audience. A generalist either picks a
-   vertical where it can build that loop, or accepts competing on generation
-   quality alone — which is the axis that commoditises fastest.
+1. **Change what we are graded on.** Acceptance is a proxy for quality, not
+   quality. Any outcome signal from deployed apps - usage, retention, whether the
+   app is still running after 30 days - beats it, and it is observable without
+   asking anyone. This is the only move that attacks the root of the attack.
+2. **Re-index the corpus by pattern rather than vertical.** Cheapest and highest
+   leverage, because it is a multiplier on data already held rather than a new
+   data source.
+3. **Decide about distribution.** Their real weapon is that creators come for the
+   builder and stay for the audience. Either pick a vertical where we can build
+   that loop, or accept competing on generation quality alone - which is the axis
+   that commoditises fastest.
+
+**Two defenses that were tested and failed:** "we have more users" does not
+survive, because density inside a domain beats volume across all of them. Neither
+does "our personalization is better" - a well-styled app nobody uses is still an
+app nobody uses.
