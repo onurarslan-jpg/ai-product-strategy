@@ -9,26 +9,39 @@
 
 | Loop | What It Measures | Score 1 | Score 5 | Score |
 |------|------------------|---------|---------|-------|
-| **Correction** | Do users fix AI outputs? Is that signal captured and reused? | No capture | Automated retraining | **4**/5 |
+| **Correction** | Do users fix AI outputs? Is that signal captured and reused? | No capture | Automated retraining | **3**/5 |
 | **Preference** | Does the product learn individual / team preferences over time? | Stateless | Deep personalization | **4**/5 |
 | **Domain Context** | Does usage in one area improve quality in adjacent areas? | Siloed | Cross-domain transfer | **2**/5 |
 | **Network** | Does each new user / team make the product better for everyone? | Isolated | Strong network effects | **3**/5 |
 
-### Correction Loop - 4/5
+### Correction Loop - 3/5
+*Revised down from 4 after the breakout. The loop is strong inside the editor and
+blind outside it.*
+
 **What you capture today:**
-The correction signal is captured, not merely generated. Every session produces a
-paired before/after with human intent attached — the sketch, the first
-generation, the fixes the user made, the version they accepted — and that pairing
-is stored in the product's own backend. It is the densest form of training signal
-available for this task and it costs nothing to collect, because correcting the
-output *is* the workflow.
+Everything that happens before the user leaves the editor. Each session yields a
+paired before/after with human intent attached - the sketch, the first
+generation, the fixes made, the version accepted - captured in our own backend
+and fed into a shared asset, so a user who never corrected anything benefits from
+corrections made before they arrived. Dense, free to collect, genuinely
+unavailable elsewhere.
+
+**What you miss, and it is the expensive half:**
+Everything that happens after. A generated app ships, and three weeks later it
+leaks on the checkout flow, or an RLS policy exposes rows it should not, or an
+edge function fails under real concurrency. We never see it. The user either
+fixes it somewhere else, prompts us again with no error context attached, or
+leaves it broken. Either way the lesson does not reach the corpus.
+
+The distinction matters because the two halves teach different things. In-editor
+corrections teach *intent* - does this match what they drew. Post-deployment
+failures teach *correctness under real conditions*, which is where the costly
+mistakes live and where a domain's hard-won rules actually come from.
 
 **How it compounds:**
-Corrections feed a shared asset, so a user who never fixed anything still
-benefits from fixes made by people before them. That is the point at which a data
-advantage starts compounding rather than merely accumulating. It stops short of 5
-because 5 means automated retraining — a continuous fine-tune behind evaluation
-gates — rather than a shared corpus read back into generation.
+It compounds on intent and not at all on outcome. That is the ceiling: a corpus
+that gets steadily better at producing output people approve of, while learning
+nothing about whether the approved output worked.
 
 ### Preference Loop - 4/5
 **What you capture today:**
@@ -80,7 +93,7 @@ shape. It is a 3 rather than a 4 because the benefit is diffuse and unattributed
 there is no shared gallery, no user-contributed templates, no remix graph, and
 nothing that makes a user feel the contribution they are making.
 
-**Total Flywheel Score: 13/20**
+**Total Flywheel Score: 12/20**
 
 **Weakest Loop:**
 **Domain Context, at 2/5** — and by this framework that is precisely where the
@@ -148,54 +161,65 @@ carries the accumulated preference profile that makes a returning user stick.
 
 ## 90-Day Encroachment Plan
 
-*Captured from the breakout. The attacker below is the most dangerous plan, not
-the most likely one - the likely version is the domain specialist in threat 2
-above. This is the same attack with distribution and planetary-scale outcome data
-attached.*
+*Captured from the breakout. The attack is my sparring partner's; the timeline is
+structured around her two points, which are quoted as she made them.*
 
-**Attacker:** Head of Product, Google - Developer Ecosystem.
+**Attacker:** A vertical specialist creator platform, played by my partner.
 
 **Attack vector (target the weakest loop):**
-Domain Context, 2/5. Not generation quality - that would take them a year to
-catch. They come at the fact that corrections are filed by industry and graded on
-whether someone clicked accept.
+Two loops at once, and the second makes the first worse.
+
+> "On the corrections loop, making sure failures that happen after leaving the
+> editor are captured would be a differentiator. When you're building in Lovable
+> and you encounter a checkout flow leak, Lovable might never see and fix or
+> learn from that error."
+
+> "On the domain context, Lovable learns whether code looks acceptable and as a
+> competitor I would learn whether it succeeds. In my vertical, Lovable's scale
+> and generic corrections would lose to my proven outcomes."
 
 **Weeks 1-4 - what they ship:**
-Sketch-to-app inside their existing developer tooling, free tier, no new model
-research required. The difference is the scaffold: every generated app is
-conditioned on what actually retains in its store category. They already own the
-index - a category taxonomy fifteen years old, with retention, install
-conversion, crash-free rate and ARPU sitting behind every category. They do not
-need to build a domain-context loop, only point an existing one at generation.
+A builder for one vertical that instruments the deployed app, not just the
+editor. Every production error - a checkout leak, a failed payment webhook, a
+data exposure - is captured, attributed to the generated code path that caused
+it, and fed back into generation. Their corpus starts learning from outcomes on
+day one.
 
 **Weeks 5-8 - how they poach users:**
-Two offers a generalist cannot match. Before a creator ships, show them projected
-D1 retention and install conversion against the category median. After they ship,
-one-click store listing - a ranking, a review surface and an audience on day one,
-where we hand back a URL and nothing else. Migration runs on our own tooling:
-code download, database export and two-way Git sync are their import pipeline.
+The pitch is proof, not polish: "apps built here fail less in production, and
+here is the number for your vertical." Our users who have already hit a
+post-launch failure we never heard about are the easiest to convert, because the
+attacker can name a problem we do not know exists.
 
 **Weeks 9-12 - why users don't come back:**
-Their loop closes on outcomes, ours on intentions. Every week their generator
-gets better at retention while ours gets better at looking approvable, and by day
-90 the gap is measurable in the only metric a creator is judged on. By then the
-creator's users, ratings and ranking live there. Leaving them costs an audience;
-leaving us costs a settings file.
+Because the gap compounds in a direction we cannot see. Their generator learns
+which patterns break in production; ours learns which patterns get approved in
+the editor. Those diverge exactly where the stakes are highest, and we only
+discover it from churn.
 
 **Your defense:**
-1. **Change what we are graded on.** Acceptance is a proxy for quality, not
-   quality. Any outcome signal from deployed apps - usage, retention, whether the
-   app is still running after 30 days - beats it, and it is observable without
-   asking anyone. This is the only move that attacks the root of the attack.
-2. **Re-index the corpus by pattern rather than vertical.** Cheapest and highest
-   leverage, because it is a multiplier on data already held rather than a new
-   data source.
-3. **Decide about distribution.** Their real weapon is that creators come for the
-   builder and stay for the audience. Either pick a vertical where we can build
-   that loop, or accept competing on generation quality alone - which is the axis
-   that commoditises fastest.
+She is right today, and in her vertical she wins today. The defense is that we
+can close this loop faster than she can scale, for one structural reason: **we
+already host the apps.** The database, auth, storage and edge functions run on
+our infrastructure, and we already collect their logs, edge function success
+rates and security scan results for debugging. The outcome signal she is
+building is flowing through our systems right now. We simply never route it back
+into generation.
 
-**Two defenses that were tested and failed:** "we have more users" does not
-survive, because density inside a domain beats volume across all of them. Neither
-does "our personalization is better" - a well-styled app nobody uses is still an
-app nobody uses.
+1. **Join runtime failures to the generation that produced them.** Both sides -
+   the generated code and the production logs - already sit in one system. Every
+   error becomes an outcome label, generated automatically, without asking a user
+   anything. This closes the truncated correction loop.
+2. **Index those failures by pattern, not by vertical.** A checkout leak, an RLS
+   misconfiguration, an auth bypass recur across every domain, so runtime
+   failures are the natural seed for a pattern index. One mechanism fixes both
+   weak loops: Correction stops ending at the editor, and Domain Context gets the
+   pattern-shaped corpus it was missing.
+3. **Concede the vertical she has already won, and race for the rest.** A
+   specialist with proven outcomes in one domain will hold it. The race is
+   whether we close the loop across every other domain before specialists appear
+   in them. The window is roughly two quarters.
+
+**What does not work as a defense:** "we have more users" (density inside a
+domain beats volume across all of them) and "our personalization is better" (a
+well-styled checkout that leaks is still a checkout that leaks).

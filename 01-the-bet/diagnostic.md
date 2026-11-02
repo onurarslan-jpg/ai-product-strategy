@@ -41,26 +41,30 @@ anchor is weaker than it looks.
 play counts. That is a switching cost denominated in audience, which no amount
 of personalization answers.
 
-### Data Advantage — 4/5
+### Data Advantage — 3/5
 *Proprietary signal that compounds with usage. What do you see that OpenAI doesn't?*
 
 **Score rationale:**
-This is the strongest axis and the reason the bet is live. Every session yields a
-paired before/after with human intent attached — sketch, first generation,
-corrections, accepted result — captured in the product's own backend and fed into
-a shared asset, so a user who never corrected anything benefits from corrections
-made before they arrived. The signal is dense, free to collect because correcting
-the output *is* the workflow, and genuinely unavailable elsewhere.
+Still the axis the bet rests on, but scored down from 4 after the M2 breakout
+exposed a blind spot. Every editor session yields a paired before/after with
+human intent attached - sketch, first generation, corrections, accepted result -
+captured in our own backend and shared across users. Dense, free to collect, and
+genuinely unavailable elsewhere.
 
-Two things hold it off 5, and the second is the more serious. The compounding is
-asserted rather than measured. And the label is weak: acceptance means someone
-clicked approve, which is a proxy for quality, not quality. A specialist that
-grades on engagement — did people actually use the generated thing — is learning
-from outcomes while this product learns from intentions.
+The corpus stops at the editor boundary, though. Failures after deployment - a
+checkout leak, an exposed row, an edge function failing under load - never reach
+it. So the advantage is real on *intent* and absent on *outcome*: we learn what
+people approve of, not what works. That is the gap a specialist grading on
+production outcomes attacks, and it is why this is a 3.
+
+The fix is unusually cheap for a gap this size, because we host the apps and
+already collect their runtime logs. The outcome label exists; it is not yet
+joined back to generation.
 
 **Named attacker (from partner challenge):**
-**Astrocade**, whose corpus is graded by plays rather than acceptance, and
-indexed by genre rather than by customer.
+**A vertical specialist that instruments production** - in my partner's words,
+"Lovable learns whether code looks acceptable and as a competitor I would learn
+whether it succeeds."
 
 ### Platform Exposure — 2/5
 *Encroachment risk × pivot speed. If Apple/Google/OpenAI ships your hero feature native — then what?*
@@ -87,8 +91,8 @@ makes it impossible to negotiate with and pointless to out-feature.
 
 ## Top Vulnerability
 <!-- One line: what's the single biggest strategic risk? -->
-The product learns from acceptance across every domain while a specialist learns
-from engagement inside one — so in any vertical it chooses, the specialist
+The product learns from acceptance inside the editor while a specialist learns
+from outcomes after deployment — so in any vertical it chooses, the specialist
 out-learns a corpus that is both thinner and graded on a weaker label, and holds
 its creators with an audience rather than a settings file.
 
