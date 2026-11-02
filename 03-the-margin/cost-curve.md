@@ -2,14 +2,38 @@
 
 ## Cost Model
 
+*Modelled, not measured. Per typical active paid user per month, built from the
+assumptions below. Replace any assumption with a real figure and the row it
+feeds should be recalculated.*
+
 | Cost Category | Per-User/Month | Notes |
 |--------------|----------------|-------|
-| Inference (primary model) | | |
-| Inference (cascading/triage) | | |
-| Infrastructure | | |
-| Data/storage | | |
-| Human-in-the-loop | | |
-| **Total AI COGS** | | |
+| Inference (primary model) | $7.95 | 6 first-generation runs at ~$0.65 plus 36 escalated edits at ~$0.11. $1.30 of this is retries - the cheapest line to cut. |
+| Inference (cascading/triage) | $3.26 | 84 edits on the cheap model at ~$0.04 plus a routing check on every message. Saves ~$6.30 against sending the same edits to the frontier model. |
+| Infrastructure | $4.00 | ~3 live deployed apps at ~$1 each (hosting, database, functions, auth) plus ~$1 of build and preview sandboxes. Scales with live apps, not with usage. |
+| Data/storage | $0.60 | Corrections corpus, preference profiles, app file storage. About $0.30 is runtime logs for the M2 outcome loop. |
+| Human-in-the-loop | $0.50 | Support escalations, security-review spot checks, golden-set labelling. No human sits in the generation path. |
+| **Total AI COGS** | **$16.31** | About $4.08 per app built. |
+
+**Assumptions:**
+- Usage: 4 new apps a month at 1.5 first-generation attempts each, and 120 edit
+  messages, of which the cascade keeps 70% on the cheap model.
+- Prices per million tokens: frontier $3 input / $15 output, cheap $1 / $5,
+  cached input billed at 10% of list. Placeholder list prices, not a quote.
+- Token shape: a first-generation run is ~200k input (60% cached) and ~25k
+  output; an edit is ~80k input (80% cached) and ~3k output.
+- Infrastructure is a per-app platform cost, not a public cloud list price.
+
+**What it says, if the assumptions hold:**
+- **Margin is thin.** Against the 20 EUR/month price point in kill criterion 4,
+  $16.31 of AI COGS leaves roughly 18% before anything else is paid for -
+  treating EUR and USD as comparable at this level of precision.
+- **Kill criterion 4's cost leg trips.** About $4.08 per app is double the 2 EUR
+  threshold. The bet survives only if willingness to pay sits well above 20 EUR.
+- **Caching is load-bearing.** Without it, inference alone rises from $11.21 to
+  about $24.21 - more than the price of the plan.
+- **Levers in order of size:** caching hit rate, then cascade ratio, then the
+  retry cap.
 
 ## Cascading Strategy
 <!-- Cheap model → frontier model routing logic -->
